@@ -13,73 +13,94 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RectShape;
 import android.graphics.drawable.shapes.RoundRectShape;
+import android.graphics.drawable.shapes.Shape;
+import android.support.annotation.ColorInt;
+import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author amulya
  * @datetime 14 Oct 2014, 3:53 PM
  */
 public class TextDrawable extends ShapeDrawable {
+    public static final int DRAWABLE_SHAPE_NONE = -1;
 
-    private final Paint textPaint;
+    public static final int DRAWABLE_SHAPE_RECT = 0;
 
-    private final Paint borderPaint;
+    public static final int DRAWABLE_SHAPE_ROUND_RECT = 1;
+
+    public static final int DRAWABLE_SHAPE_OVAL = 2;
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({DRAWABLE_SHAPE_NONE, DRAWABLE_SHAPE_RECT, DRAWABLE_SHAPE_ROUND_RECT, DRAWABLE_SHAPE_OVAL})
+    public @interface DrawableShape {
+    }
 
     private static final float SHADE_FACTOR = 0.9f;
 
-    private final String text;
+    private Paint mTextPaint;
 
-    private final int color;
+    private Paint mBorderPaint;
 
-    private final RectShape shape;
+    @Nullable
+    private String mText;
 
-    private final int height;
+    private int mColor;
 
-    private final int width;
+    @DrawableShape
+    private int mShape;
 
-    private final int fontSize;
+    private int mHeight;
 
-    private final float radius;
+    private int mWidth;
 
-    private final int borderThickness;
+    private int mFontSize;
 
-    private Bitmap bitmap;
+    private float mCornerRadius;
+
+    private int mBorderThickness;
+
+    @Nullable
+    private Bitmap mBitmap;
 
     private TextDrawable(Builder builder) {
-        super(builder.shape);
+        super(builder.getShapeDrawable());
 
         // shape properties
-        shape = builder.shape;
-        height = builder.height;
-        width = builder.width;
-        radius = builder.radius;
+        mShape = builder.shape;
+        mHeight = builder.height;
+        mWidth = builder.width;
+        mCornerRadius = builder.mCornerRadius;
 
         // text and color
-        text = builder.toUpperCase ? builder.text.toUpperCase() : builder.text;
-        color = builder.color;
+        mText = builder.toUpperCase ? builder.text.toUpperCase() : builder.text;
+        mColor = builder.color;
 
         // text paint settings
-        fontSize = builder.fontSize;
-        textPaint = new Paint();
-        textPaint.setColor(builder.textColor);
-        textPaint.setAntiAlias(true);
-        textPaint.setFakeBoldText(builder.isBold);
-        textPaint.setStyle(Paint.Style.FILL);
-        textPaint.setTypeface(builder.font);
-        textPaint.setTextAlign(Paint.Align.CENTER);
-        textPaint.setStrokeWidth(builder.borderThickness);
+        mFontSize = builder.fontSize;
+        mTextPaint = new Paint();
+        mTextPaint.setColor(builder.textColor);
+        mTextPaint.setAntiAlias(true);
+        mTextPaint.setStyle(Paint.Style.FILL);
+        mTextPaint.setTypeface(builder.tf);
+        mTextPaint.setTextAlign(Paint.Align.CENTER);
+        mTextPaint.setStrokeWidth(builder.borderThickness);
 
         // border paint settings
-        borderThickness = builder.borderThickness;
-        borderPaint = new Paint();
-        borderPaint.setColor(getDarkerShade(color));
-        borderPaint.setStyle(Paint.Style.STROKE);
-        borderPaint.setStrokeWidth(borderThickness);
+        mBorderThickness = builder.borderThickness;
+        mBorderPaint = new Paint();
+        mBorderPaint.setColor(getDarkerShade(mColor));
+        mBorderPaint.setStyle(Paint.Style.STROKE);
+        mBorderPaint.setStrokeWidth(mBorderThickness);
 
         // drawable paint color
         Paint paint = getPaint();
-        paint.setColor(color);
+        paint.setColor(mColor);
 
-        this.bitmap = builder.bitmap;
+        mBitmap = builder.bitmap;
     }
 
     private int getDarkerShade(int color) {
@@ -95,51 +116,58 @@ public class TextDrawable extends ShapeDrawable {
 
 
         // draw border
-        if (borderThickness > 0) {
+        if (mBorderThickness > 0) {
             drawBorder(canvas);
         }
 
         int count = canvas.save();
-        if (bitmap == null) {
+        if (mBitmap == null) {
             canvas.translate(r.left, r.top);
         }
 
         // draw text
-        int width = this.width < 0 ? r.width() : this.width;
-        int height = this.height < 0 ? r.height() : this.height;
-        int fontSize = this.fontSize < 0 ? (Math.min(width, height) / 2) : this.fontSize;
+        int width = this.mWidth < 0 ? r.width() : this.mWidth;
+        int height = this.mHeight < 0 ? r.height() : this.mHeight;
+        int fontSize = this.mFontSize < 0 ? (Math.min(width, height) / 2) : this.mFontSize;
 
-        if (bitmap == null) {
-            textPaint.setTextSize(fontSize);
-            canvas.drawText(text, width / 2, height / 2 - ((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+        if (mBitmap == null) {
+            mTextPaint.setTextSize(fontSize);
+            canvas.drawText(mText, width / 2, height / 2 - ((mTextPaint.descent() + mTextPaint.ascent()) / 2), mTextPaint);
         } else {
-            canvas.drawBitmap(bitmap, (width - bitmap.getWidth()) / 2, (height - bitmap.getHeight()) / 2, null);
+            canvas.drawBitmap(mBitmap, (width - mBitmap.getWidth()) / 2, (height - mBitmap.getHeight()) / 2, null);
         }
-        canvas.restoreToCount(count);
 
+        canvas.restoreToCount(count);
     }
 
     private void drawBorder(Canvas canvas) {
         RectF rect = new RectF(getBounds());
-        rect.inset(borderThickness / 2, borderThickness / 2);
+        rect.inset(mBorderThickness / 2, mBorderThickness / 2);
 
-        if (shape instanceof OvalShape) {
-            canvas.drawOval(rect, borderPaint);
-        } else if (shape instanceof RoundRectShape) {
-            canvas.drawRoundRect(rect, radius, radius, borderPaint);
-        } else {
-            canvas.drawRect(rect, borderPaint);
+        switch (mShape) {
+            case DRAWABLE_SHAPE_ROUND_RECT:
+                canvas.drawRoundRect(rect, mCornerRadius, mCornerRadius, mBorderPaint);
+                break;
+
+            case DRAWABLE_SHAPE_OVAL:
+                canvas.drawOval(rect, mBorderPaint);
+                break;
+
+            case DRAWABLE_SHAPE_NONE:
+            case DRAWABLE_SHAPE_RECT:
+            default:
+                canvas.drawRect(rect, mBorderPaint);
         }
     }
 
     @Override
     public void setAlpha(int alpha) {
-        textPaint.setAlpha(alpha);
+        mTextPaint.setAlpha(alpha);
     }
 
     @Override
     public void setColorFilter(ColorFilter cf) {
-        textPaint.setColorFilter(cf);
+        mTextPaint.setColorFilter(cf);
     }
 
     @Override
@@ -149,12 +177,12 @@ public class TextDrawable extends ShapeDrawable {
 
     @Override
     public int getIntrinsicWidth() {
-        return width;
+        return mWidth;
     }
 
     @Override
     public int getIntrinsicHeight() {
-        return height;
+        return mHeight;
     }
 
     /**
@@ -170,204 +198,189 @@ public class TextDrawable extends ShapeDrawable {
         return bitmap;
     }
 
-    public static class Builder implements IConfigBuilder, IShapeBuilder, IBuilder {
-        private String text = null;
+    /**
+     * Builder class for generating a {@link TextDrawable}
+     */
+    public static class Builder {
+        String text = null;
 
-        private int color = Color.GRAY;
+        int color = Color.GRAY;
 
-        private int borderThickness = 0;
+        int borderThickness = 0;
 
-        private int width = -1;
+        int width = -1;
 
-        private int height = -1;
+        int height = -1;
 
-        private Typeface font = Typeface.create("sans-serif-light", Typeface.NORMAL);
+        Typeface tf = Typeface.create("sans-serif-light", Typeface.NORMAL);
 
-        private RectShape shape = new RectShape();
+        @DrawableShape
+        int shape;
 
-        public int textColor = Color.WHITE;
+        int textColor = Color.WHITE;
 
-        private int fontSize = -1;
+        int fontSize = -1;
 
-        private boolean isBold = false;
+        boolean toUpperCase = false;
 
-        private boolean toUpperCase = false;
+        float mCornerRadius;
 
-        public float radius;
-
-        public Bitmap bitmap;
+        Bitmap bitmap;
 
         public Builder() {
         }
 
-        public IConfigBuilder width(int width) {
+        /**
+         * Sets the width of the drawable
+         *
+         * @param width
+         * @return
+         */
+        public Builder setWidth(int width) {
             this.width = width;
             return this;
         }
 
-        public IConfigBuilder height(int height) {
+        /**
+         * Sets the height of the drawable
+         *
+         * @param height
+         * @return
+         */
+        public Builder setHeight(int height) {
             this.height = height;
             return this;
         }
 
-        public IConfigBuilder textColor(int color) {
+        /**
+         * Sets the text color to be used for the drawable. Will be ignored if {@link #setIcon(Bitmap)} is called
+         *
+         * @param color
+         * @return
+         */
+        public Builder setTextColor(@ColorInt int color) {
             this.textColor = color;
             return this;
         }
 
-        public IConfigBuilder withBorder(int thickness) {
+        /**
+         * Sets the border thickness for the drawable. Defaults to 0
+         *
+         * @param thickness
+         * @return
+         */
+        public Builder setBorderThickness(int thickness) {
             this.borderThickness = thickness;
             return this;
         }
 
-        public IConfigBuilder useFont(Typeface font) {
-            this.font = font;
+        /**
+         * Sets the typeface for the drawable
+         *
+         * @param tf
+         * @return
+         */
+        public Builder setTypeface(Typeface tf) {
+            this.tf = tf;
             return this;
         }
 
-        public IConfigBuilder fontSize(int size) {
+        /**
+         * Sets the text size of the drawable. Will be ignored if {@link #setIcon(Bitmap)} is called
+         *
+         * @param size
+         * @return
+         */
+        public Builder setTextSize(int size) {
             this.fontSize = size;
             return this;
         }
 
-        public IConfigBuilder bold() {
-            this.isBold = true;
-            return this;
-        }
-
-        public IConfigBuilder toUpperCase() {
+        /**
+         * Sets the text to be upper case
+         *
+         * @return
+         */
+        public Builder toUpperCase() {
             this.toUpperCase = true;
             return this;
         }
 
-        @Override
-        public IConfigBuilder beginConfig() {
+        /**
+         * Sets the {@link com.amulyakhare.textdrawable.TextDrawable.DrawableShape} to be used for the drawable
+         *
+         * @param shape
+         * @return
+         */
+        public Builder setShape(@DrawableShape int shape) {
+            this.shape = shape;
             return this;
         }
 
-        @Override
-        public IShapeBuilder endConfig() {
+        /**
+         * Sets the corner radius for the drawable. Will be ignored unless the {@link com.amulyakhare.textdrawable.TextDrawable.DrawableShape} is
+         * SHAPE_ROUND_RECT
+         *
+         * @param cornerRadius
+         * @return
+         */
+        public Builder setCornerRadius(int cornerRadius) {
+            this.mCornerRadius = cornerRadius;
             return this;
         }
 
-        @Override
-        public IBuilder rect() {
-            this.shape = new RectShape();
-            return this;
-        }
-
-        @Override
-        public IBuilder round() {
-            this.shape = new OvalShape();
-            return this;
-        }
-
-        @Override
-        public IBuilder roundRect(int radius) {
-            this.radius = radius;
-            float[] radii = {radius, radius, radius, radius, radius, radius, radius, radius};
-            this.shape = new RoundRectShape(radii, null, null);
-            return this;
-        }
-
-        @Override
-        public TextDrawable buildRect(String text, int color) {
-            rect();
-            return build(text, color);
-        }
-
-        @Override
-        public TextDrawable buildRect(Bitmap bitmap, int color) {
-            rect();
-            return build(bitmap, color);
-        }
-
-        @Override
-        public TextDrawable buildRoundRect(String text, int color, int radius) {
-            roundRect(radius);
-            return build(text, color);
-        }
-
-        @Override
-        public TextDrawable buildRoundRect(Bitmap bitmap, int color, int radius) {
-            roundRect(radius);
-            return build(bitmap, color);
-        }
-
-        @Override
-        public TextDrawable buildRound(String text, int color) {
-            round();
-            return build(text, color);
-        }
-
-        @Override
-        public TextDrawable buildRound(Bitmap bitmap, int color) {
-            round();
-            return build(bitmap, color);
-        }
-
-        @Override
-        public TextDrawable build(String text, int color) {
-            this.color = color;
-            this.text = text;
-            return new TextDrawable(this);
-        }
-
-        @Override
-        public TextDrawable build(Bitmap bitmap, int color) {
+        /**
+         * Sets the icon to be used for the drawable
+         *
+         * @param bitmap
+         * @return
+         */
+        public Builder setIcon(Bitmap bitmap) {
+            this.text = null;
             this.bitmap = bitmap;
-            this.color = color;
+            return this;
+        }
+
+        /**
+         * Sets the text to be used for the drawable.
+         *
+         * @param text
+         * @return
+         */
+        public Builder setText(String text) {
+            this.bitmap = null;
+            this.text = text;
+            return this;
+        }
+
+        /**
+         * Returns the {@link TextDrawable}
+         *
+         * @return
+         */
+        public TextDrawable build() {
             return new TextDrawable(this);
         }
-    }
 
-    public interface IConfigBuilder {
-        IConfigBuilder width(int width);
+        /**
+         * Returns the {@link ShapeDrawable} used for the {@link TextDrawable}
+         *
+         * @return
+         */
+        private Shape getShapeDrawable() {
+            switch (shape) {
+                case DRAWABLE_SHAPE_ROUND_RECT:
+                    float[] radii = {mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius, mCornerRadius};
+                    return new RoundRectShape(radii, null, null);
 
-        IConfigBuilder height(int height);
+                case DRAWABLE_SHAPE_OVAL:
+                    return new OvalShape();
 
-        IConfigBuilder textColor(int color);
-
-        IConfigBuilder withBorder(int thickness);
-
-        IConfigBuilder useFont(Typeface font);
-
-        IConfigBuilder fontSize(int size);
-
-        IConfigBuilder bold();
-
-        IConfigBuilder toUpperCase();
-
-        IShapeBuilder endConfig();
-    }
-
-    public interface IBuilder {
-
-        TextDrawable build(String text, int color);
-
-        TextDrawable build(Bitmap bitmap, int color);
-    }
-
-    public interface IShapeBuilder {
-
-        IConfigBuilder beginConfig();
-
-        IBuilder rect();
-
-        IBuilder round();
-
-        IBuilder roundRect(int radius);
-
-        TextDrawable buildRect(String text, int color);
-
-        TextDrawable buildRect(Bitmap bitmap, int color);
-
-        TextDrawable buildRoundRect(String text, int color, int radius);
-
-        TextDrawable buildRoundRect(Bitmap bitmap, int color, int radius);
-
-        TextDrawable buildRound(String text, int color);
-
-        TextDrawable buildRound(Bitmap bitmap, int color);
+                case DRAWABLE_SHAPE_NONE:
+                case DRAWABLE_SHAPE_RECT:
+                default:
+                    return new RectShape();
+            }
+        }
     }
 }
