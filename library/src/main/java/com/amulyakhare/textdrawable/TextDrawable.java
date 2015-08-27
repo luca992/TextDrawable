@@ -170,50 +170,34 @@ public class TextDrawable extends ShapeDrawable {
         return bitmap;
     }
 
-    public static IShapeBuilder builder() {
-        return new Builder();
-    }
-
     public static class Builder implements IConfigBuilder, IShapeBuilder, IBuilder {
+        private String text = null;
 
-        private String text;
+        private int color = Color.GRAY;
 
-        private int color;
+        private int borderThickness = 0;
 
-        private int borderThickness;
+        private int width = -1;
 
-        private int width;
+        private int height = -1;
 
-        private int height;
+        private Typeface font = Typeface.create("sans-serif-light", Typeface.NORMAL);
 
-        private Typeface font;
+        private RectShape shape = new RectShape();
 
-        private RectShape shape;
+        public int textColor = Color.WHITE;
 
-        public int textColor;
+        private int fontSize = -1;
 
-        private int fontSize;
+        private boolean isBold = false;
 
-        private boolean isBold;
-
-        private boolean toUpperCase;
+        private boolean toUpperCase = false;
 
         public float radius;
 
         public Bitmap bitmap;
 
-        private Builder() {
-            text = "";
-            color = Color.GRAY;
-            textColor = Color.WHITE;
-            borderThickness = 0;
-            width = -1;
-            height = -1;
-            shape = new RectShape();
-            font = Typeface.create("sans-serif-light", Typeface.NORMAL);
-            fontSize = -1;
-            isBold = false;
-            toUpperCase = false;
+        public Builder() {
         }
 
         public IConfigBuilder width(int width) {
