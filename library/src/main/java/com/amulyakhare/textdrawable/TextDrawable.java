@@ -354,6 +354,17 @@ public class TextDrawable extends ShapeDrawable {
         }
 
         /**
+         * Sets the color of the drawable
+         *
+         * @param color
+         * @return
+         */
+        public Builder setColor(@ColorInt int color) {
+            this.color = color;
+            return this;
+        }
+
+        /**
          * Returns the {@link TextDrawable}
          *
          * @return

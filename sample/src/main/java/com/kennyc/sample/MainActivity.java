@@ -1,6 +1,7 @@
 package com.kennyc.sample;
 
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
                 .setWidth(250)
                 .setShape(TextDrawable.DRAWABLE_SHAPE_OVAL)
                 .setText("a")
+                .setColor(Color.BLUE)
                 .toUpperCase()
                 .build();
 
