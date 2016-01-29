@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
@@ -21,16 +20,4 @@ android {
 
 dependencies {
     compile 'com.android.support:support-annotations:23.0.0'
-}
-
-publish {
-    bintrayUser = project.BINTRAY_USER
-    bintrayKey = project.BINTRAY_API_KEY
-    dryRun = false;
-    groupId = 'com.kennyc'
-    artifactId = 'text-drawable'
-    version = project.VERSION
-    website = 'https://github.com/Kennyc1012/TextDrawable'
-    issueTracker = "${website}/issues"
-    repository = "${website}.git"
 }
