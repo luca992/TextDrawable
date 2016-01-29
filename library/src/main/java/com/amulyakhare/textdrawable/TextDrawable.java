@@ -26,6 +26,8 @@ import java.lang.annotation.RetentionPolicy;
  * @datetime 14 Oct 2014, 3:53 PM
  */
 public class TextDrawable extends ShapeDrawable {
+    private static final Typeface LIGHT = Typeface.create("sans-serif-light", Typeface.NORMAL);
+
     public static final int DRAWABLE_SHAPE_NONE = -1;
 
     public static final int DRAWABLE_SHAPE_RECT = 0;
@@ -76,7 +78,7 @@ public class TextDrawable extends ShapeDrawable {
         mCornerRadius = builder.mCornerRadius;
 
         // text and color
-        mText = builder.toUpperCase ? builder.text.toUpperCase() : builder.text;
+        mText = builder.text;
         mColor = builder.color;
 
         // text paint settings
@@ -212,16 +214,14 @@ public class TextDrawable extends ShapeDrawable {
 
         int height = -1;
 
-        Typeface tf = Typeface.create("sans-serif-light", Typeface.NORMAL);
+        Typeface tf = LIGHT;
 
         @DrawableShape
-        int shape;
+        int shape = DRAWABLE_SHAPE_NONE;
 
         int textColor = Color.WHITE;
 
         int fontSize = -1;
-
-        boolean toUpperCase = false;
 
         float mCornerRadius;
 
@@ -293,16 +293,6 @@ public class TextDrawable extends ShapeDrawable {
          */
         public Builder setTextSize(int size) {
             this.fontSize = size;
-            return this;
-        }
-
-        /**
-         * Sets the text to be upper case
-         *
-         * @return
-         */
-        public Builder toUpperCase() {
-            this.toUpperCase = true;
             return this;
         }
 

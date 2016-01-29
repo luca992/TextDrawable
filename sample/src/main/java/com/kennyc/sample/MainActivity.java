@@ -25,9 +25,8 @@ public class MainActivity extends AppCompatActivity {
                 .setHeight(250)
                 .setWidth(250)
                 .setShape(TextDrawable.DRAWABLE_SHAPE_OVAL)
-                .setText("a")
+                .setText("A")
                 .setColor(Color.BLUE)
-                .toUpperCase()
                 .build();
 
         tv1.setCompoundDrawablesWithIntrinsicBounds(d1, null, null, null);
@@ -45,8 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 .setHeight(250)
                 .setWidth(250)
                 .setShape(TextDrawable.DRAWABLE_SHAPE_RECT)
-                .setText("a")
-                .toUpperCase()
+                .setText("A")
                 .build();
 
         tv3.setCompoundDrawablesWithIntrinsicBounds(d3, null, null, null);
