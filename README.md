@@ -7,12 +7,12 @@ It has been reworked to be more simplified as well as had several features added
 ## Add repository 
 ```groovy
 repositories {
-    maven { url 'https://dl.bintray.com/kennyc1012/maven' }
+    maven { url "https://jitpack.io" }
 }
 ```
 ## Add dependency
 ```groovy
 dependencies {
-    compile 'com.kennyc:text-drawable:1.0'
+    compile 'com.github.Kennyc1012:TextDrawable:1.1'
 }
 ```
