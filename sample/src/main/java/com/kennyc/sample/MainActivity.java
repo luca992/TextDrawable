@@ -3,10 +3,11 @@ package com.kennyc.sample;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 
@@ -16,10 +17,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView tv1 = (TextView) findViewById(R.id.test1);
-        TextView tv2 = (TextView) findViewById(R.id.test2);
-        TextView tv3 = (TextView) findViewById(R.id.test3);
-        TextView tv4 = (TextView) findViewById(R.id.test4);
+        TextView tv1 = findViewById(R.id.test1);
+        TextView tv2 = findViewById(R.id.test2);
+        TextView tv3 = findViewById(R.id.test3);
+        TextView tv4 = findViewById(R.id.test4);
 
         TextDrawable d1 = new TextDrawable.Builder()
                 .setHeight(250)
