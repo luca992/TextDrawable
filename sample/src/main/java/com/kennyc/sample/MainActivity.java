@@ -2,6 +2,7 @@ package com.kennyc.sample;
 
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.TextDrawableBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,40 +24,35 @@ public class MainActivity extends AppCompatActivity {
         TextView tv3 = findViewById(R.id.test3);
         TextView tv4 = findViewById(R.id.test4);
 
-        TextDrawable d1 = new TextDrawable.Builder()
+        Drawable d1 = new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_OVAL,"A")
                 .setHeight(250)
                 .setWidth(250)
-                .setShape(TextDrawable.DRAWABLE_SHAPE_OVAL)
-                .setText("A")
                 .setColor(Color.BLUE)
                 .build();
 
         tv1.setCompoundDrawablesWithIntrinsicBounds(d1, null, null, null);
 
-        TextDrawable d2 = new TextDrawable.Builder()
+        Drawable d2 = new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_OVAL)
                 .setHeight(250)
                 .setWidth(250)
-                .setShape(TextDrawable.DRAWABLE_SHAPE_OVAL)
                 .setIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .build();
 
         tv2.setCompoundDrawablesWithIntrinsicBounds(d2, null, null, null);
 
-        TextDrawable d3 = new TextDrawable.Builder()
+        Drawable d3 = new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_RECT,"A")
                 .setHeight(250)
                 .setWidth(250)
-                .setShape(TextDrawable.DRAWABLE_SHAPE_RECT)
-                .setText("A")
                 .build();
 
         tv3.setCompoundDrawablesWithIntrinsicBounds(d3, null, null, null);
 
-        TextDrawable d4 = new TextDrawable.Builder()
-                .setHeight(250)
-                .setWidth(250)
-                .setShape(TextDrawable.DRAWABLE_SHAPE_RECT)
-                .setIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                .build();
+        Drawable d4 =
+                new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_RECT)
+                        .setHeight(250)
+                        .setWidth(250)
+                        .setIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                        .build();
 
         tv4.setCompoundDrawablesWithIntrinsicBounds(d4, null, null, null);
     }
