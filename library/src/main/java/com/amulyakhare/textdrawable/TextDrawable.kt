@@ -10,8 +10,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.IntDef
 
 class TextDrawable(@DrawableShape val shape: Int = TextDrawable.DRAWABLE_SHAPE_RECT,
-                   @ColorInt var color: Int = Color.WHITE,
-                   @ColorInt var textColor: Int = Color.BLACK,
+                   @ColorInt var color: Int = Color.GRAY,
+                   @ColorInt var textColor: Int = Color.WHITE,
                    var cornerRadius: Float = 0F,
                    var textSize: Float = 0f,
                    var desiredHeight: Int = -1,
