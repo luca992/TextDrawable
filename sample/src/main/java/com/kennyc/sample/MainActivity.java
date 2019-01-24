@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tv5 = findViewById(R.id.test5);
         TextView tv6 = findViewById(R.id.test6);
 
-        Drawable d1 = new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_OVAL,"A")
+        Drawable d1 = new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_OVAL, "A")
                 .setHeight(250)
                 .setWidth(250)
                 .setColor(Color.BLUE)
@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
                 .setHeight(250)
                 .setWidth(250)
                 .setColor(Color.RED)
-                .setIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_smiley))
                 .build();
 
         tv2.setCompoundDrawablesWithIntrinsicBounds(d2, null, null, null);
 
-        Drawable d3 = new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_RECT,"A")
+        Drawable d3 = new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_RECT, "A")
                 .setHeight(250)
                 .setWidth(250)
                 .setColor(Color.GREEN)
@@ -52,34 +52,31 @@ public class MainActivity extends AppCompatActivity {
 
         tv3.setCompoundDrawablesWithIntrinsicBounds(d3, null, null, null);
 
-        Drawable d4 =
-                new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_RECT)
-                        .setHeight(250)
-                        .setWidth(250)
-                        .setColor(Color.YELLOW)
-                        .setIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                        .build();
+        Drawable d4 = new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_RECT)
+                .setHeight(250)
+                .setWidth(250)
+                .setColor(Color.YELLOW)
+                .setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_smiley))
+                .build();
 
         tv4.setCompoundDrawablesWithIntrinsicBounds(d4, null, null, null);
 
-        Drawable d5 =
-                new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_ROUND_RECT,"A")
-                        .setHeight(250)
-                        .setWidth(250)
-                        .setColor(Color.MAGENTA)
-                        .setCornerRadius(50f)
-                        .build();
+        Drawable d5 = new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_ROUND_RECT, "A")
+                .setHeight(250)
+                .setWidth(250)
+                .setColor(Color.MAGENTA)
+                .setCornerRadius(50f)
+                .build();
 
         tv5.setCompoundDrawablesWithIntrinsicBounds(d5, null, null, null);
 
-        Drawable d6 =
-                new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_ROUND_RECT)
-                        .setHeight(250)
-                        .setWidth(250)
-                        .setCornerRadius(50f)
-                        .setColor(Color.LTGRAY)
-                        .setIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                        .build();
+        Drawable d6 = new TextDrawableBuilder(TextDrawable.DRAWABLE_SHAPE_ROUND_RECT)
+                .setHeight(250)
+                .setWidth(250)
+                .setCornerRadius(50f)
+                .setColor(Color.LTGRAY)
+                .setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_smiley))
+                .build();
 
         tv6.setCompoundDrawablesWithIntrinsicBounds(d6, null, null, null);
     }
