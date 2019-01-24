@@ -12,7 +12,7 @@ import androidx.annotation.IntDef
 class TextDrawable(@DrawableShape val shape: Int = TextDrawable.DRAWABLE_SHAPE_RECT,
                    @ColorInt var color: Int = Color.WHITE,
                    @ColorInt var textColor: Int = Color.BLACK,
-                   var cornerRadius: Float,
+                   var cornerRadius: Float = 0F,
                    var textSize: Float = 0f,
                    var desiredHeight: Int = -1,
                    var desiredWidth: Int = -1,
