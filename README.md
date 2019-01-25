@@ -74,6 +74,6 @@ allprojects {
 Add dependency
 ```groovy
 dependencies {
-    compile 'com.github.Kennyc1012:TextDrawable:1.1'
+    implementation 'com.github.Kennyc1012:TextDrawable:2.0'
 }
 ```
