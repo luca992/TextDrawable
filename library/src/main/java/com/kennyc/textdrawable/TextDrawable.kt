@@ -28,7 +28,7 @@ class TextDrawable(
         var borderThickness: Float = 0F,
         // The color of the border. Will be ignored if borderThickness is <= 0
         @ColorInt var borderColor: Int = color,
-        // The typeface to use for the text of the drawable/ Will be ignored if an icon is set
+        // The typeface to use for the text of the drawable. Will be ignored if an icon is set
         var typeFace: Typeface = Typeface.DEFAULT,
         // The text to use for the drawable. Will be ignored if an icon is set
         var text: String? = null,
