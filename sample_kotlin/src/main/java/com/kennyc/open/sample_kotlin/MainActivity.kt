@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         val d2 = TextDrawable(shape = TextDrawable.DRAWABLE_SHAPE_OVAL,
                 desiredWidth = 250,
                 desiredHeight = 250,
+                borderColor = Color.GREEN,
+                borderThickness = 20f,
                 color = Color.RED,
                 icon = BitmapFactory.decodeResource(resources, R.drawable.ic_action_smiley))
 

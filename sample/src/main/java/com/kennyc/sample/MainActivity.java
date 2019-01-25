@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
                 .setHeight(250)
                 .setWidth(250)
                 .setColor(Color.RED)
+                .setBorderColor(Color.GREEN)
+                .setBorderThickness(20f)
                 .setIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_smiley))
                 .build();
 

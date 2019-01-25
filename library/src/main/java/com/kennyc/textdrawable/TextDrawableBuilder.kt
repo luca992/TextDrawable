@@ -26,6 +26,7 @@ class TextDrawableBuilder(@TextDrawable.DrawableShape
     private var textSize = 0f
     private var cornerRadius: Float = 0f
     private var icon: Bitmap? = null
+    private var borderColor = color
 
     /**
      * Sets the width of the drawable
@@ -152,11 +153,32 @@ class TextDrawableBuilder(@TextDrawable.DrawableShape
     }
 
     /**
+     * Sets the color of the border
+     * @param color
+     * @return
+     */
+    fun setBorderColor(@ColorInt color: Int): TextDrawableBuilder {
+        this.borderColor = color
+        return this
+    }
+
+    /**
      * Returns the [TextDrawable]
      *
      * @return
      */
     fun build(): TextDrawable {
-        return TextDrawable(shape, color, textColor, cornerRadius, textSize, desiredHeight, desiredWidth, borderThickness, typeFace, text, icon)
+        return TextDrawable(shape = shape,
+                color = color,
+                textColor = textColor,
+                cornerRadius = cornerRadius,
+                textSize = textSize,
+                desiredHeight = desiredHeight,
+                desiredWidth = desiredWidth,
+                borderThickness = borderThickness,
+                borderColor = borderColor,
+                typeFace = typeFace,
+                text = text,
+                icon = icon)
     }
 }

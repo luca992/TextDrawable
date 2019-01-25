@@ -26,6 +26,8 @@ class TextDrawable(
         var desiredWidth: Int = -1,
         // The border thickness of the drawable
         var borderThickness: Float = 0F,
+        // The color of the border. Will be ignored if borderThickness is <= 0
+        @ColorInt var borderColor: Int = color,
         // The typeface to use for the text of the drawable/ Will be ignored if an icon is set
         var typeFace: Typeface = Typeface.DEFAULT,
         // The text to use for the drawable. Will be ignored if an icon is set
@@ -75,7 +77,7 @@ class TextDrawable(
         }
 
         // border paint settings
-        borderPaint.color = getDarkerShade(color)
+        borderPaint.color = getColorForBorder()
         borderPaint.style = Paint.Style.STROKE
         borderPaint.strokeWidth = borderThickness
 
@@ -164,9 +166,16 @@ class TextDrawable(
         }
     }
 
-    private fun getDarkerShade(color: Int): Int {
-        return Color.rgb((SHADE_FACTOR * Color.red(color)).toInt(),
-                (SHADE_FACTOR * Color.green(color)).toInt(),
-                (SHADE_FACTOR * Color.blue(color)).toInt())
+    private fun getColorForBorder(): Int {
+        return when (borderColor) {
+            color -> {
+                Color.rgb((SHADE_FACTOR * Color.red(color)).toInt(),
+                        (SHADE_FACTOR * Color.green(color)).toInt(),
+                        (SHADE_FACTOR * Color.blue(color)).toInt())
+            }
+
+            else -> borderColor
+        }
+
     }
 }
