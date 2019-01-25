@@ -9,17 +9,29 @@ import android.graphics.drawable.shapes.Shape
 import androidx.annotation.ColorInt
 import androidx.annotation.IntDef
 
-class TextDrawable(@DrawableShape val shape: Int = TextDrawable.DRAWABLE_SHAPE_RECT,
-                   @ColorInt var color: Int = Color.GRAY,
-                   @ColorInt var textColor: Int = Color.WHITE,
-                   var cornerRadius: Float = 0F,
-                   var textSize: Float = 0f,
-                   var desiredHeight: Int = -1,
-                   var desiredWidth: Int = -1,
-                   var borderThickness: Float = 0F,
-                   var typeFace: Typeface = Typeface.DEFAULT,
-                   var text: String? = null,
-                   var icon: Bitmap? = null) : ShapeDrawable(getShapeDrawable(shape, cornerRadius)) {
+class TextDrawable(
+        // The Shape the drawable should take
+        @DrawableShape val shape: Int = TextDrawable.DRAWABLE_SHAPE_RECT,
+        // The solid fill color of the drawable
+        @ColorInt var color: Int = Color.GRAY,
+        // The color of the text for the drawable. Will be ignored if an icon is set
+        @ColorInt var textColor: Int = Color.WHITE,
+        // The corner radius for the drawable. Will be ignored if the shape is not a DRAWABLE_SHAPE_ROUND_RECT
+        var cornerRadius: Float = 0F,
+        // The text size for the text of the drawable. Will be ignored if an icon is set
+        var textSize: Float = 0f,
+        // The desired height of the drawable
+        var desiredHeight: Int = -1,
+        // The desired width of the drawable
+        var desiredWidth: Int = -1,
+        // The border thickness of the drawable
+        var borderThickness: Float = 0F,
+        // The typeface to use for the text of the drawable/ Will be ignored if an icon is set
+        var typeFace: Typeface = Typeface.DEFAULT,
+        // The text to use for the drawable. Will be ignored if an icon is set
+        var text: String? = null,
+        // The icon to use for the drawable. Will override any text that may have been set
+        var icon: Bitmap? = null) : ShapeDrawable(getShapeDrawable(shape, cornerRadius)) {
 
     companion object {
         private const val SHADE_FACTOR = 0.9f
