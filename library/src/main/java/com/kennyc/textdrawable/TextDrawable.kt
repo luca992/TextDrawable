@@ -1,4 +1,4 @@
-package com.amulyakhare.textdrawable
+package com.kennyc.textdrawable
 
 import android.graphics.*
 import android.graphics.drawable.ShapeDrawable

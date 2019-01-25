@@ -1,4 +1,4 @@
-package com.amulyakhare.textdrawable
+package com.kennyc.textdrawable
 
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -94,7 +94,7 @@ class TextDrawableBuilder(@TextDrawable.DrawableShape
     }
 
     /**
-     * Sets the [com.amulyakhare.textdrawable.TextDrawable.DrawableShape] to be used for the drawable
+     * Sets the [com.kennyc.textdrawable.TextDrawable.DrawableShape] to be used for the drawable
      *
      * @param shape
      * @return
@@ -105,7 +105,7 @@ class TextDrawableBuilder(@TextDrawable.DrawableShape
     }
 
     /**
-     * Sets the corner radius for the drawable. Will be ignored unless the [com.amulyakhare.textdrawable.TextDrawable.DrawableShape] is
+     * Sets the corner radius for the drawable. Will be ignored unless the [com.kennyc.textdrawable.TextDrawable.DrawableShape] is
      * SHAPE_ROUND_RECT
      *
      * @param cornerRadius

@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.TextDrawableBuilder;
+import com.kennyc.textdrawable.TextDrawable;
+import com.kennyc.textdrawable.TextDrawableBuilder;
 
 public class MainActivity extends AppCompatActivity {
 

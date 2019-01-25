@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.amulyakhare.textdrawable.TextDrawable
+import com.kennyc.textdrawable.TextDrawable
 
 class MainActivity : AppCompatActivity() {
 
