@@ -64,7 +64,7 @@ class TextDrawable(
 
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    private val borderPaint = Paint()
+    private val innerPaint = Paint()
 
     init {
         // text paint settings
@@ -76,13 +76,17 @@ class TextDrawable(
             textPaint.strokeWidth = borderThickness
         }
 
-        // border paint settings
-        borderPaint.color = getColorForBorder()
-        borderPaint.style = Paint.Style.STROKE
-        borderPaint.strokeWidth = borderThickness
+        if (borderThickness > 0F) {
+            // draw shape as color of border
+            // then fill shape inset by border with the normal color
+            paint.color = getColorForBorder()
+            innerPaint.style = Paint.Style.FILL
+            innerPaint.strokeWidth = borderThickness
+            innerPaint.color = color
+        } else {
+            paint.color = color
+        }
 
-        // drawable paint color
-        paint.color = color
     }
 
     override fun onDraw(shape: Shape, canvas: Canvas, paint: Paint) {
@@ -93,7 +97,7 @@ class TextDrawable(
 
         // draw border
         if (borderThickness > 0F) {
-            drawBorder(canvas)
+            drawInnerShape(canvas)
         }
 
         val count = canvas.save()
@@ -152,17 +156,20 @@ class TextDrawable(
         return bitmap
     }
 
-    private fun drawBorder(canvas: Canvas) {
+    private fun drawInnerShape(canvas: Canvas) {
         val rect = RectF(bounds)
-        val inset = borderThickness / 2f
+        val inset = borderThickness
         rect.inset(inset, inset)
 
         when (shape) {
-            DRAWABLE_SHAPE_ROUND_RECT -> canvas.drawRoundRect(rect, cornerRadius, cornerRadius, borderPaint)
+            DRAWABLE_SHAPE_ROUND_RECT -> {
+                val roundRectCornerRadius = cornerRadius - inset
+                canvas.drawRoundRect(rect, roundRectCornerRadius, roundRectCornerRadius, innerPaint)
+            }
 
-            DRAWABLE_SHAPE_OVAL -> canvas.drawOval(rect, borderPaint)
+            DRAWABLE_SHAPE_OVAL -> canvas.drawOval(rect, innerPaint)
 
-            else -> canvas.drawRect(rect, borderPaint)
+            else -> canvas.drawRect(rect, innerPaint)
         }
     }
 
