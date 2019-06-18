@@ -2,19 +2,19 @@ package com.kennyc.textdrawable
 
 import kotlin.random.Random
 
-class ColorGenerator private constructor(private val mColors: List<Int>) {
-    private val mRandom: Random = Random(System.currentTimeMillis())
+class ColorGenerator private constructor(private val colors: List<Int>) {
+    private val random: Random = Random(System.currentTimeMillis())
 
     val randomColor: Int
-        get() = mColors[mRandom.nextInt(mColors.size)]
+        get() = colors[random.nextInt(colors.size)]
 
     fun getColor(key: Any): Int {
-        return mColors[Math.abs(key.hashCode()) % mColors.size]
+        return colors[Math.abs(key.hashCode()) % colors.size]
     }
 
     companion object {
 
-        var DEFAULT: ColorGenerator = create(listOf(
+        val DEFAULT: ColorGenerator = create(listOf(
                 -0xe9c9c,
                 -0xa7aa7,
                 -0x65bc2,
@@ -26,7 +26,7 @@ class ColorGenerator private constructor(private val mColors: List<Int>) {
                 -0x7fa87f
         ))
 
-        var MATERIAL: ColorGenerator = create(listOf(
+        val MATERIAL: ColorGenerator = create(listOf(
                 -0x1a8c8d,
                 -0xf9d6e,
                 -0x459738,
